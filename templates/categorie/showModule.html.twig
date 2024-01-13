@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Modules{% endblock %}
+
+{% block body %}
+
+    <h1>Modules de la catégorie {{ categorie|raw }}</h1>
+
+    {% for module in categorie.modules %}
+        <div>
+            <h2>{{ module.moduleName }}</h2>
+        </div>
+    {% endfor %}
+    
+
+{% endblock %}

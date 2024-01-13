@@ -1,0 +1,32 @@
+{# Étend le template de base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# Définit le contenu du bloc 'title' qui sera utilisé dans le template parent base.html.twig #}
+{% block title %}Ajouter une Formation{% endblock %}
+
+{% block body %}
+    {% if edit %}
+        <h1 class="title">Mettre à jour {{ formation.intitule }}</h1>
+    {% else %}
+        <h1 class="title">Ajouter une Formation</h1>
+    {% endif %}
+    
+    <div id="formContainer">
+
+       {{ form_start(formAddFormation) }}
+            <div class="row">
+                <div class="title">
+                    {{ form_row(formAddFormation.intitule) }} 
+                </div>
+            </div>
+            
+            <div class="center">
+                <p>{{ form_row(formAddFormation.enregistrer) }}</p>
+            </div>
+             
+        {{ form_end(formAddFormation) }}
+
+    </div>
+    
+
+{% endblock %}

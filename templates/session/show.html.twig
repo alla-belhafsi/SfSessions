@@ -1,0 +1,51 @@
+{# Étend le template de base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# Définit le contenu du bloc 'title' qui sera utilisé dans le template parent base.html.twig #}
+{% block title %}Détail d'une session{% endblock %}
+
+{% block body %}
+    <h1 class="title">Détail de la formation {{ session.formation.intitule }}</h1>
+
+    <div id="container">
+        <div class="card-session">
+            <h2 class="center">{{ session.intitule }}</h2>
+            <p class="center">Formateur</p> 
+            <div class="card-sessionItems">
+                <p>{{ session.formateur }}</p>
+            </div>
+            <p class="center">Nombre de places</p> 
+            <div class="card-sessionItems">
+                <p>{{ session.nombrePlace }}</p>
+            </div>
+            <p class="center">Période</p> 
+            <div class="card-sessionItems">
+                <p class="center">Du {{ session.dateDebut|date('d.m.Y') }} au {{ session.dateFin|date('d.m.Y') }}</p>
+            </div>
+
+            <p class="center">Modules</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Durée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for programme in programmes %}
+                        <tr>
+                            <td>
+                                {{ programme.module.nom }}
+                            </td>
+                            <td >
+                                {{ programme.nombreJours }} jours
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+{% endblock %}
+

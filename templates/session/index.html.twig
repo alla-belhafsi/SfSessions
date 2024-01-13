@@ -1,0 +1,28 @@
+{# Étend le template de base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# Définit le contenu du bloc 'title' qui sera utilisé dans le template parent base.html.twig #}
+{% block title %}Liste des sessions{% endblock %}
+
+{% block body %}
+    <h1 class="title">Liste des sessions</h1>
+
+    {% if not sessions %}
+        <p class="center"><a href="{{ path('new_session') }}" class="btn btn-success">Ajouter une session</a></p>
+        
+    {% else %}
+        
+    {% for session in sessions %}
+        {# Affiche grâce à la méthode magique __toString le contenu de chaque session en utilisant le filtre 'raw' pour désactiver l'affichage HTML #}
+        <div class="row">
+            <h2 class="intitule"><a class="link intitule" href="{{ path('show_session', {'id': session.id}) }}">{{ session|raw }}</a></h2>
+            <div class="center">
+                <a class="btn btn-warning linkBtn" href="{{ path('edit_session', {'id': session.id}) }}">Edit</a>
+                <a class="btn btn-danger linkBtn" href="{{ path('delete_session', {'id': session.id}) }}">Supprimer</a>
+            </div>
+        </div>
+        
+    {% endif %}
+
+    {% endfor %}
+{% endblock %}

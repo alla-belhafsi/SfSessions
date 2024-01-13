@@ -1,3 +1,239 @@
 body {
-    background-color: skyblue;
+    background-color: #ffffff;
+}
+
+/*-------------- NAVBAR --------------*/
+.navbar {
+    display: flex;
+    justify-content: space-around;
+}
+
+/*--------------- BODY ---------------*/
+.title {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.link {
+    transition: 0.47s;
+}
+.link a {
+    text-decoration: none;
+    color: #000;
+}
+.link-shadow {
+    width: 185px;
+    height: 50px;
+    padding: 5px;
+    border-radius: 5px;
+}
+.link-shadow:hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+}
+
+.intitule {
+    text-align: center;
+    color: rgb(93, 37, 37)
+}
+.number {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bolder;
+    margin-top: 10px;
+}
+.center {
+    text-align: center;
+}
+/*--------------- FORMS ---------------*/
+#formContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 30px;
+}
+.form-control {
+    padding: 0px 100px 10px 100px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+.form-control:hover {
+    border: 1px solid #000;
+}
+
+
+/*--------------- CARDS ---------------*/
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    background-color: #fff;
+    width: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    padding: 30px 55px 30px 0px;
+    gap: 30px;
+}
+
+/*---------- SESSIONS -----------*/
+.card-session {
+    text-align: center;
+    background-color: #fff;
+    width: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    padding: 20px;
+    gap: 30px;
+}
+.card-sessionItems {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: default;
+    overflow: hidden;
+    border: 1px solid #000;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    padding-bottom: -25px;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+/*---------- CATEGORIES -----------*/
+
+.card {
+    background-color: #fff;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    padding: 25px;
+}
+
+.card-items {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 5px;
+}
+
+.table {
+    margin-left: 50px;
+}
+
+/*---------- MODULES -----------*/
+.card-module {
+    cursor: default;
+    background-color: #fff;
+    width: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #000;
+    padding: 20px;
+}
+
+/*------------- BUTTONS -------------*/
+.linkBtn {
+    text-decoration: none;
+    color: #000;
+    margin: 5px;
+    transition: 0.47s;
+}
+.linkBtn:hover {
+    transform: scale(1.1);
+    color: #fff;
+}
+
+.linkAddBtn {
+    text-decoration: none;
+    color: #fff;
+    margin: 5px;
+    transition: 0.47s;
+}
+
+.btn-add {
+    margin-top: -20px;
+    margin-left: -20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    font-weight: bolder;
+    border-radius: 100%;
+    text-align: center;
+    padding: 0px 0px 3px 0px;
+    height: 20px;
+    width: 20px;
+    font-weight: bold; 
+    cursor: pointer;
+}
+
+.btn-add:hover {
+    background-color: #218838; /* Couleur de fond légèrement plus foncée lors du survol */
+}
+
+.btn-addModule {
+    margin-top: -25px;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    font-weight: bolder;
+    border-radius: 100%;
+    text-align: center;
+    padding: 0px 0px 3.5px 0px;
+    height: 20px;
+    width: 20px;
+    font-weight: bold; 
+    cursor: pointer;
+}
+
+.btn-addModule:hover {
+    background-color: #218838; /* Couleur de fond légèrement plus foncée lors du survol */
+}
+
+/*---------------------- FORMS ----------------------*/
+.form-control {
+    padding: 5px 10px 5px 10px;
+}
+
+/* Media query pour les écrans avec une largeur entre 769 et 1024 pixels (exemples : tablettes) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .table {
+        margin-left: 0px;
+    }
+    
+}
+
+
+/* Media query pour les écrans avec une largeur maximale de 768 pixels (communément utilisé pour les appareils mobiles) */
+@media screen and (max-width: 768px) { 
+    .table {
+        margin-left: 0px;
+    }
+
+    .btn-addModule {
+        margin-left: -80px;
+    }
 }

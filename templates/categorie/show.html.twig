@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Modules{% endblock %}
+
+{% block body %}
+
+    <h1 class="title">{{ categorie|raw }}</h1>
+    <div id="container">
+        <div class="card-container">
+            <button class="btn btn-addModule rounded-circle"><a class="linkAddBtn" href="{{ path('new_module') }}">+</a></button>
+            {% for module in categorie.modules %}
+                <div class="card-module">
+                    <h2 class="card-items">{{ module.nom }}</h2>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+{% endblock %}

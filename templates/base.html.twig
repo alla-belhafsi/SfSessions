@@ -1,17 +1,67 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <!-- Utilisation d'un favicon simple avec un cercle noir -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><text y='1.2em' font-size='96'>⚫️</text></svg>">
+    
+    {% block stylesheets %}
+    <!-- Utilisation du CDN de Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    {% endblock %}
+</head>
 
-        {% block javascripts %}
-{% block importmap %}{{ importmap('app') }}{% endblock %}
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            {% if not app.user %}
+                <!-- Utilisez navbar-brand pour le titre du site -->
+                <a class="navbar-brand" href="{{ path('app_home') }}">Elan Formation</a>
+            {% endif %}
+            
+            <!-- Ajoutez le bouton de bascule pour les petits écrans -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if app.user %}
+                        <!-- Si l'utilisateur est connecté, afficher le lien vers le profil et le lien de déconnexion -->
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_categorie') }}">Modules</a></li>
+                    {% else %}  
+                        <!-- Sinon, afficher les liens de connexion et d'inscription -->
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Sign up</a></li>
+                    {% endif %}
+                    
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <!-- Si l'utilisateur a le rôle admin, afficher le lien vers le panneau de contrôle -->
+                        <li class="nav-item"><a class="nav-link" href="{{ path('adminShow_home', {'id': app.user.id}) }}">Control Panel</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <main class="container">
+        {% if not app.user %}
+            <!-- Si l'utilisateur n'est pas connecté, afficher le titre Elan Formation -->
+            <h1 class="title">Elan Formation</h1>
+        {% endif %}
+        {% block body %}
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    </main>
+    
+    {% block javascripts %}
+    {{ importmap('app') }}
+        <!-- Utilisation du CDN de Bootstrap pour les scripts JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <!-- Import du script 'app' (assurez-vous que cette fonction est définie) -->
+    {% endblock %}
+</body>
 </html>

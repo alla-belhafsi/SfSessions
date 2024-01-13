@@ -1,0 +1,32 @@
+{# Étend le template de base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# Définit le contenu du bloc 'title' qui sera utilisé dans le template parent base.html.twig #}
+{% block title %}Ajouter une catégorie{% endblock %}
+
+{% block body %}
+    {% if edit %}
+        <h1 class="title">Mettre à jour {{ categorie.nom }}</h1>
+    {% else %}
+        <h1 class="title">Ajouter une Catégorie</h1>
+    {% endif %}
+    
+    <div id="formContainer">
+
+       {{ form_start(formAddCategorie) }}
+            <div class="row">
+                <div class="title">
+                    {{ form_row(formAddCategorie.nom) }} 
+                </div>
+            </div>
+            
+            <div class="center">
+                <p>{{ form_row(formAddCategorie.enregistrer) }}</p>
+            </div>
+             
+        {{ form_end(formAddCategorie) }}
+
+    </div>
+    
+
+{% endblock %}
