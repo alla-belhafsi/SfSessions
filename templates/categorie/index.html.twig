@@ -6,30 +6,30 @@
 
 {% block body %}
     <h1 class="title">Modules par Catégorie</h1>
-
+    <div class="center"><a class="btn btn-success linkBtn" href="{{ path('new_module') }}">Ajouter un Module</a>
+    </div>
     <div id="container">
         <div class="card">
-            <button class="btn btn-add rounded-circle"><a class="linkAddBtn" href="{{ path('new_categorie') }}">+</a></button>
-            <table class="table">
+            <table class="table table-borderless">
                 <thead>
                     <tr>
-                        <th class="border-0">Catégorie</th>
-                        <th class="center border-0">Nombre de Modules</th>
-                        <th class="center border-0">Actions</th>
+                        <th>Catégorie</th>
+                        <th class="center">Modules (Quantité)</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for categorie in categories %}
                         <tr>
-                            <td class="border-0">
+                            <td>
                                 <div class="link link-shadow">
                                     <h3><a href="{{ path('show_module', {'id': categorie.id}) }}">{{ categorie|raw }}</a></h3>
                                 </div>
                             </td>
-                            <td class="border-0">
+                            <td>
                                 <p class="number">{{ categorie.modules | length }}</p>
                             </td>
-                            <td class="center border-0">
+                            <td class="center">
                                 <a class="btn btn-warning linkBtn" href="{{ path('edit_categorie', {'id': categorie.id}) }}">Modifier</a>
                                 <a class="btn btn-danger linkBtn" href="{{ path('delete_categorie', {'id': categorie.id}) }}">Supprimer</a>
                             </td>

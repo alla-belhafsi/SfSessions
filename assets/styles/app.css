@@ -44,6 +44,9 @@ body {
     margin-top: 10px;
 }
 .center {
+    display: flex;
+    justify-content: center;
+    align-content: center;
     text-align: center;
 }
 /*--------------- FORMS ---------------*/
@@ -85,7 +88,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-    padding: 30px 55px 30px 0px;
+    padding: 30px;
     gap: 30px;
 }
 
@@ -218,6 +221,28 @@ body {
     padding: 5px 10px 5px 10px;
 }
 
+.custom-programme-field {
+    display: flex; 
+    justify-content: space-between;
+    width: 48%;
+}
+
+.myRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5%;
+}
+.myRow div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+/* #programmes-container {
+    margin-left: -11%;
+} */
+
 /* Media query pour les écrans avec une largeur entre 769 et 1024 pixels (exemples : tablettes) */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
     .table {
@@ -235,5 +260,9 @@ body {
 
     .btn-addModule {
         margin-left: -80px;
+    }
+
+    .card {
+        padding: 5px;
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Module;
-use App\Entity\Session;
 use App\Entity\Programme;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,30 +16,37 @@ class ProgrammeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('session', EntityType::class, [
-                'class' => Session::class,
-                'choice_label' => 'intitule',
-                'attr' => [
-                    'class' => 'form-select'
-                ]
-            ])
+            // ->add('session', EntityType::class, [
+            //     'class' => Session::class,
+            //     'choice_label' => 'intitule',
+            //     'attr' => [
+            //         'class' => 'form-select'
+            //     ]
+            // ])
             ->add('module', EntityType::class, [
                 'class' => Module::class,
                 'choice_label' => 'nom',
                 'attr' => [
                     'class' => 'form-select'
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'center'
+                ],
+            
             ])
             ->add('nombreJours', NumberType::class, [
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'center'
+                ],
             ])
-            ->add('enregistrer', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-success'
-                ]
-            ])
+            // ->add('enregistrer', SubmitType::class, [
+            //     'attr' => [
+            //         'class' => 'btn btn-success'
+            //     ]
+            // ])
         ;
     }
 

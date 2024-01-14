@@ -33,7 +33,13 @@ class SessionController extends AbstractController
         if(!$session) 
         {
             $session = new Session();
+            // Ajouter un programme vide à la session si elle n'a pas de programmes
+            if ($session->getProgrammes()->isEmpty()) {
+                $programme = new Programme();
+                $session->addProgramme($programme);
+            }
         }
+        
         
         // Créer un formulaire basé sur le type de formulaire SessionType et l'entité Session
         $form = $this->createForm(SessionType::class, $session);
@@ -45,10 +51,17 @@ class SessionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Récupérer les données soumises dans le formulaire ($form->getData() contient les valeurs soumises dans le formulaire)
             $session = $form->getData();
-
+            
+            
             // Préparer l'entité à être persistée (ajoutée) en base de données (Prepare PDO)
             $entityManager->persist($session);
-
+            
+            // Parcourir la collection de Programmes et les persister
+            foreach ($session->getProgrammes() as $programme) 
+            {
+                // Persister le Programme avant de l'ajouter à la Session
+                $entityManager->persist($programme);
+            }
             // Exécuter la persistance des données en base de données (Execute PDO)
             $entityManager->flush();
 

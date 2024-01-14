@@ -12,17 +12,25 @@
         
     {% else %}
         
-    {% for session in sessions %}
-        {# Affiche grâce à la méthode magique __toString le contenu de chaque session en utilisant le filtre 'raw' pour désactiver l'affichage HTML #}
-        <div class="row">
-            <h2 class="intitule"><a class="link intitule" href="{{ path('show_session', {'id': session.id}) }}">{{ session|raw }}</a></h2>
-            <div class="center">
-                <a class="btn btn-warning linkBtn" href="{{ path('edit_session', {'id': session.id}) }}">Edit</a>
-                <a class="btn btn-danger linkBtn" href="{{ path('delete_session', {'id': session.id}) }}">Supprimer</a>
-            </div>
-        </div>
-        
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for session in sessions %}
+                <tr class="d-flex justify-content-between align-items-center">
+                    <td class="link link-shadow"><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
+                    <td>
+                        <a href="{{ path('edit_session', {'id': session.id}) }}" class="linkBtn btn btn-warning">Edit</a>
+                        <a href="{{ path('delete_session', {'id': session.id}) }}" class="linkBtn btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% endif %}
 
-    {% endfor %}
 {% endblock %}

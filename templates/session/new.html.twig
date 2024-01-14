@@ -13,42 +13,66 @@
     <div class="formContainer">
 
        {{ form_start(formAddSession) }}
-            <div class="row">
-                <div class="col-sm">
+            <div class="myRow">
+                <div class="center col-sm">
                     {{ form_row(formAddSession.intitule) }} 
                 </div>
-                <div class="col-sm">
+                <div class="center col-sm">
                     {{ form_row(formAddSession.nombrePlace) }}  
                 </div>
             </div>
+
+            {% for programmeForm in formAddSession.programmes %}
             <div class="row">
-                <div class="col-sm">
-                    {{ form_row(formAddSession.dateDebut) }}  
+                <div class="col-sm mt-1">
+                    {{ form_row(programmeForm.module) }}
                 </div>
                 <div class="col-sm">
+                    {{ form_row(programmeForm.nombreJours) }}
+                </div>
+            </div>
+            {% endfor %}
+
+            {# Prototype Twig #}
+            <div id="programmes-container" class="row" style="display: none;">
+                <div class="programme" data-prototype-module="{{ form_row(formAddSession.programmes.vars.prototype.module)|e }}">
+                </div>
+                <div class="programme" data-prototype-nombre-jours="{{ form_row(formAddSession.programmes.vars.prototype.nombreJours)|e }}">
+                </div>
+            </div>
+            <button type="button" class="btn btn-success mt-3" onclick="addProgrammeForm(this)">
+                <i class="fas fa-plus"></i> Ajouter un programme
+            </button>
+
+
+            {# <div id="programmes-container" data-prototype="{{ form_row(formAddSession.programmes.vars.prototype)|e }}">
+                <div class="row">
+                    <div class="col-sm">
+                        <button type="button" class="btn btn-success" onclick="addProgrammeForm(this)">
+                            <i class="fas fa-plus"></i> Ajouter un programme
+                        </button>
+                    </div>
+                </div>
+            </div> #}
+
+            <div class="myRow mt-4">
+                <div class="center col-sm">
+                    {{ form_row(formAddSession.dateDebut) }}  
+                </div>
+                <div class="center col-sm">
                     {{ form_row(formAddSession.dateFin) }}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm">
+            <div class="myRow">
+                <div class="center col-sm">
                     {{ form_row(formAddSession.formation) }}
                 </div>
-                <div class="col-sm">
+                <div class="center col-sm">
                     {{ form_row(formAddSession.formateur) }}
                 </div>
             </div>
-            {# {{ form_row(formAddSession.stagiaires) }} #}
 
-            <div class="row">
-                <div class="col-sm">
-                    {{ form_row(formAddSession.id) }} 
-                </div>
-                {# <div class="col-sm">
-                    {{ form_row(formAddProgramme.nombreJours) }} 
-                </div> #}
-            </div>
-
-            <div class="center">
+            <div class="center mt-4">
                 <p>{{ form_row(formAddSession.enregistrer) }}</p>
             </div>
              

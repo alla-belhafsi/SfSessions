@@ -5,35 +5,61 @@
 {% block body %}
 
     {% if app.user %}
-        <div class="container mt-4">
+        <div class="container">
             
             <h1 class="title">Bienvenue !</h1>
             {% if is_granted('ROLE_ADMIN') %}
                 <p class="text-danger center">Administrateur</p>
-
-                <p class="center">Vous êtes connecté avec l'adresse e-mail : {{ app.user.email }}</p>
-
-                <div class="card-container">
-                    <button class="btn btn-success"><a class="linkAddBtn" href="{{ path('new_formateur') }}">Ajouter un formateur</a></button>
-    
-                    <button class="btn btn-success"><a class="linkAddBtn" href="{{ path('new_formation') }}">Ajouter une formation</a></button>
-                
-                    <button class="btn btn-success"><a class="linkAddBtn" href="{{ path('new_programme') }}">Programmer une session</a></button>
-
-                    <button class="btn btn-success"><a class="linkAddBtn" href="{{ path('new_session') }}">Ajouter une session</a></button>
-                </div>
-
             {% else %}
-                <p class="center">Utilisateur</p>
-
-                <p class="center">Vous êtes connecté avec l'adresse e-mail : {{ app.user.email }}</p>
+            <p class="center">Utilisateur</p>
             {% endif %}
 
+            <p class="center">Vous êtes connecté avec l'adresse e-mail : {{ app.user.email }}</p>
 
+            {% if is_granted('ROLE_ADMIN') %}
 
-            
-            
+                <!-- Si l'utilisateur a le rôle admin, afficher la carte d'ajout-->
+                <div class="card-container mt-4">
+                    <button class="btn btn-success"><a class="linkAddBtn" href="{{ path('new_formateur') }}">Ajouter un Formateur</a></button>
+    
+                    <button class="btn btn-success"><a class="linkAddBtn" href="{{ path('new_formation') }}">Ajouter une Formation</a></button>
+
+                    <button class="btn btn-success"><a class="linkAddBtn" href="{{ path('new_categorie') }}">Ajouter une Catégorie</a></button>
+    
+                    <button class="btn btn-success"><a class="linkAddBtn" href="{{ path('new_module') }}">Ajouter un Module</a></button>
+                
+                    <button class="btn btn-success"><a class="linkAddBtn" href="{{ path('new_programme') }}">Programmer une Session</a></button>
+
+                    <button class="btn btn-success"><a class="linkAddBtn" href="{{ path('new_session') }}">Ajouter une Session</a></button>
+                </div>
+            {% endif %} 
+        
+            <div class="card-container mt-4">
+                {% if not sessions %}
+                    <p class="center"><a href="{{ path('new_session') }}" class="btn btn-success">Ajouter une session</a></p>
+                {% else %}
+
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for session in sessions %}
+                                <tr class="d-flex justify-content-between align-items-center">
+                                    <td class="link link-shadow"><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
+                                    <td>
+                                        <a href="{{ path('edit_session', {'id': session.id}) }}" class="linkBtn btn btn-warning">Modifier</a>
+                                        <a href="{{ path('delete_session', {'id': session.id}) }}" class="linkBtn btn btn-danger">Supprimer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
         </div>
     {% endif %}
-
 {% endblock %}

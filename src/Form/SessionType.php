@@ -7,6 +7,7 @@ use App\Entity\Formateur;
 use App\Entity\Formation;
 use App\Entity\Programme;
 use App\Entity\Stagiaire;
+use App\Form\ProgrammeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class SessionType extends AbstractType
 {
@@ -43,11 +45,6 @@ class SessionType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            // ->add('stagiaires', EntityType::class, [
-            //     'class' => Stagiaire::class,
-            //     'choice_label' => 'id',
-            //     'multiple' => true,
-            // ])
             ->add('formation', EntityType::class, [
                 'class' => Formation::class,
                 'choice_label' => 'intitule',
@@ -65,12 +62,13 @@ class SessionType extends AbstractType
                     'class' => 'form-select'
                 ]
             ])
-            ->add('id', EntityType::class, [
-                'class' => Programme::class,
-                'choice_label' => 'id',
-                'attr' => [
-                    'class' => 'form-select',
-                ]
+            ->add('programmes', CollectionType::class, [
+                'entry_type' => ProgrammeType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label' => 'Programmes'
             ])
             ->add('enregistrer', SubmitType::class, [
                 'attr' => [
