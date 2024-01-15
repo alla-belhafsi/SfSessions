@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Formation;
 use App\Form\FormationType;
+use App\Repository\SessionRepository;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,6 +77,18 @@ class FormationController extends AbstractController
 
         // Rediriger vers la liste des formations après la suppression réussi
         return $this->redirectToRoute('app_formation');
+    }
+
+    #[Route('/formation/{id}', name: 'show_formation')]
+    public function show(SessionRepository $sessionRepository, Formation $formation): Response
+    {
+        // Tri des users par pseudo en ordre croissant (ASC)
+        $sessions = $sessionRepository->findBy([], ["id" => "ASC"]);
+
+        return $this->render('formation/show.html.twig', [
+            'sessions' => $sessions,
+            'formation' =>$formation
+        ]);
     }
 }
 

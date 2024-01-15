@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Module;
 use App\Entity\Programme;
 use App\Form\ProgrammeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProgrammeController extends AbstractController
@@ -31,7 +33,7 @@ class ProgrammeController extends AbstractController
         {
             $programme = new Programme();
         }
-        
+
         // Créer un formulaire basé sur le type de formulaire ProgrammeType et l'entité Programme
         $form = $this->createForm(ProgrammeType::class, $programme);
 
@@ -57,7 +59,7 @@ class ProgrammeController extends AbstractController
         return $this->render('programme/new.html.twig', [
             'formAddProgramme' => $form,
             'edit' => $programme->getId(),
-            'programme' => $programme
+            'programme' => $programme,
         ]);
     }
 

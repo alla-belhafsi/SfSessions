@@ -26,12 +26,15 @@
                                     <h3><a href="{{ path('show_module', {'id': categorie.id}) }}">{{ categorie|raw }}</a></h3>
                                 </div>
                             </td>
-                            <td>
-                                <p class="number">{{ categorie.modules | length }}</p>
-                            </td>
                             <td class="center">
-                                <a class="btn btn-warning linkBtn" href="{{ path('edit_categorie', {'id': categorie.id}) }}">Modifier</a>
-                                <a class="btn btn-danger linkBtn" href="{{ path('delete_categorie', {'id': categorie.id}) }}">Supprimer</a>
+                                <strong>
+                                    <p class="number">{{ categorie.modules | length }}</p>
+                                </strong>
+                            </td>
+                            <td class="link">
+                                <a href="{{ path('edit_categorie', {'id': categorie.id}) }}"><span class="material-symbols-outlined">settings</span></a>
+
+                                <a href="{{ path('delete_categorie', {'id': categorie.id}) }}"><span class="material-symbols-outlined">delete</span></a>
                             </td>
                         </tr>
                     {% endfor %}

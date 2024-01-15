@@ -24,11 +24,12 @@
             </div>
 
             <p class="center">Modules</p>
-            <table class="table">
+            <table class="table table-borderless">
                 <thead>
                     <tr>
                         <th>Module</th>
                         <th>Durée</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,8 +38,12 @@
                             <td>
                                 {{ programme.module.nom }}
                             </td>
-                            <td >
+                            <td>
                                 {{ programme.nombreJours }} jours
+                            </td>
+                            <td class="icons link">
+                                <a href="{{ path('edit_programme', {'id': programme.id}) }}"><span class="material-symbols-outlined">settings</span></a>
+                                <a href="{{ path('delete_programme', {'id': programme.id}) }}"><span class="material-symbols-outlined">delete</span></a>
                             </td>
                         </tr>
                     {% endfor %}

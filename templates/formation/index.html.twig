@@ -6,12 +6,12 @@
 
     <h1 class="title mb-4">Liste des Formations</h1>
     <div class="center">
-        <a class="btn btn-success linkBtn" href="{{ path('new_module') }}">Ajouter une Formation</a>
+        <a class="btn btn-success linkBtn" href="{{ path('new_formation') }}">Ajouter une Formation</a>
     </div>
     <div id="container-formation">
         {% for formation in formations %}  
             <div class="link card-formation">
-                <a class="link-shadowFormation formation-card-items">{{ formation.intitule }}</a>
+                <a class="link-shadowFormation formation-card-items" href="{{ path('show_formation', {'id': formation.id}) }}">{{ formation.intitule }}</a>
             </div>
         {% endfor %}
     </div>

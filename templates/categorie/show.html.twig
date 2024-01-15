@@ -7,15 +7,28 @@
     <h1 class="title">{{ categorie|raw }}</h1>
     <div class="center"><a class="btn btn-success linkBtn" href="{{ path('new_module') }}">Ajouter un Module</a>
     </div>
-    <div id="container">
-        <div class="card-container">
+
+    <table class="center">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
             {% for module in categorie.modules %}
-             <div class="card-module">
-                 <h2 class="card-items">{{ module.nom }}</h2>
-             </div>
-             {% endfor %}
-        </div>
-    </div>
-    
+                    <tr class="card-module myRow mt-4">
+                        <td>
+                            <h2 class="card-items">{{ module.nom }}</h2>
+                        </td>
+                        <td class="iconsInModule link">
+                            <a href="{{ path('edit_module', {'id': module.id}) }}"><span class="material-symbols-outlined">settings</span></a>
+                            <a href="{{ path('delete_module', {'id': module.id}) }}"><span class="material-symbols-outlined">delete</span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+   
 
 {% endblock %}

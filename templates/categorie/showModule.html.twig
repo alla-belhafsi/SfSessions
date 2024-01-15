@@ -4,13 +4,16 @@
 
 {% block body %}
 
-    <h1>Modules de la catégorie {{ categorie|raw }}</h1>
-
-    {% for module in categorie.modules %}
-        <div>
-            <h2>{{ module.moduleName }}</h2>
+    <h1>{{ categorie|raw }}</h1>
+    <div id="container-formation">
+        <div class="card-container">
+            <div class="link card-formation">
+                {% for module in categorie.modules %}
+                    <h2 class="formation-card-items">{{ module.nom }}</h2></h2>
+                {% endfor %}
+            </div>
         </div>
-    {% endfor %}
+    </div>
     
 
 {% endblock %}

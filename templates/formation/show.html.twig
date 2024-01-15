@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Sessions{% endblock %}
+
+{% block body %}
+
+    <h1 class="title">{{ formation.intitule }}</h1>
+    <div class="center"><a class="btn btn-success linkBtn" href="{{ path('new_module') }}">Ajouter une session</a>
+    </div>
+    <div id="container-formation">
+        <div class="card-container">
+            {% if formation.sessions is not empty %}
+                {% for session in formation.sessions %}
+                <div class="link card-formation">
+                    <a class="link-shadowFormation formation-card-items" href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a>
+                </div>
+                {% endfor %}
+            {% else %}  
+                <p class="center">
+                    Aucune session programmer dans cette formation.
+                </p>
+                
+            {% endif %}
+        </div>
+    </div>
+    
+
+{% endblock %}

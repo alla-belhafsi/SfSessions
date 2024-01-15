@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Formateur;
 use App\Form\FormateurType;
+use App\Repository\FormateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,10 +14,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FormateurController extends AbstractController
 {
     #[Route('/formateur', name: 'app_formateur')]
-    public function index(): Response
+    public function index(FormateurRepository $formateurRepository): Response
     {
+        $formateurs = $formateurRepository->findBy([], ["nom" => "ASC"]);
+
         return $this->render('formateur/index.html.twig', [
-            'controller_name' => 'FormateurController',
+            'formateurs' => $formateurs,
         ]);
     }
 

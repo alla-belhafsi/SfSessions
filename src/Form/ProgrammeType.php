@@ -41,13 +41,17 @@ class ProgrammeType extends AbstractType
                 'label_attr' => [
                     'class' => 'center'
                 ],
-            ])
-            // ->add('enregistrer', SubmitType::class, [
-            //     'attr' => [
-            //         'class' => 'btn btn-success'
-            //     ]
-            // ])
-        ;
+            ]);
+
+            // Vérifie si la variable 'edit' est définie avant d'ajouter le champ 'enregistrer'
+            if (isset($options['edit']) && $options['edit']) {
+                $builder->add('enregistrer', SubmitType::class, [
+                    'attr' => [
+                        'class' => 'btn btn-success'
+                    ]
+                ]);
+            }
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void

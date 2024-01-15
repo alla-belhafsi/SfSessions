@@ -7,7 +7,13 @@ body {
     display: flex;
     justify-content: start;
     align-content: center;
-    margin-left: -35%;
+    margin-left: -20%;
+}
+.nav-link {
+    color: #fff!important;
+}
+.logo-elan {
+    border-radius: 50%;
 }
 
 /*--------------- BODY ---------------*/
@@ -43,7 +49,6 @@ body {
     text-align: center;
     font-size: 18px;
     font-weight: bolder;
-    margin-top: 10px;
 }
 .center {
     display: flex;
@@ -51,6 +56,26 @@ body {
     align-content: center;
     text-align: center;
 }
+
+.icons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+.iconsInModule {
+    display: flex;
+    margin-right: -15%;
+    gap: 15px;
+}
+
+.material-symbols-outlined {
+    transition: 0.5s;
+}
+.material-symbols-outlined:hover {
+    transform: scale(1.2);
+}
+
+
 /*--------------- FORMS ---------------*/
 #formContainer {
     display: flex;
@@ -66,6 +91,11 @@ body {
 }
 .form-control:hover {
     border: 1px solid #000;
+}
+
+.programmes {
+    display: flex;
+    flex-direction: row;
 }
 
 
@@ -144,13 +174,17 @@ body {
 
 /*----------- MODULES ------------*/
 .card-module {
-    cursor: default;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: #fff;
-    width: auto;
-    border-radius: 10px;
-    overflow: hidden;
+    cursor: default;
+    margin-inline: auto;
+    width: 100%;
     border: 1px solid #000;
-    padding: 20px;
+    border-radius: 10px;
+    padding-right: 50px;
 }
 
 /*---------- FORMATIONS -----------*/
@@ -196,13 +230,16 @@ body {
 /*------------- BUTTONS -------------*/
 .linkBtn {
     text-decoration: none;
-    color: #000;
+    border: none;
+    color: #fff;
     margin: 5px;
     transition: 0.47s;
+    background-color: #3d774a;
 }
 .linkBtn:hover {
     transform: scale(1.1);
     color: #fff;
+    background-color: #4d9d5e;
 }
 
 .linkAddBtn {
