@@ -13,29 +13,39 @@
             <table class="table table-borderless">
                 <thead>
                     <tr>
-                        <th>Formateur</th>
-                        <th>Formation</th>
                         <th></th>
+                        <th class="tac">Formateur</th>
+                        <th class="tac">Session</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% set formationsDejaVues = [] %}
                     {% for formateur in formateurs %}
                         <tr>
-                            <td>
-                                <div class="link link-shadow">
-                                    <a href=""><p>{{ formateur }}</p></a>
-                                </div>
-                            </td>
-                            <td class="center link">
-                                {% for session in formateur.sessions %}
-                                    <a href=""><p>{{ session.formation.intitule }}</p></a>
-                                {% endfor %}
-                            </td>
                             <td class="link">
                                 <a href="{{ path('edit_formateur', {'id': formateur.id}) }}"><span class="material-symbols-outlined">settings</span></a>
 
                                 <a href="{{ path('delete_formateur', {'id': formateur.id}) }}"><span class="material-symbols-outlined">delete</span></a>
+                            </td>
+                            <td>
+                                <div class="tac link link-shadow">
+                                    <a href=""><p>{{ formateur }}</p></a>
+                                </div>
+                            </td>
+                            <td class="center">
+                                {% set formateurId = formateur.id %}
+                                {% set hasSessions = false %}
+                                {% for session in formateur.sessions %}
+                                    {% if session.formateur.id == formateurId %}
+                                        {% set hasSessions = true %}
+                                        <div class="button-shadow session-items link">
+                                            <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if not hasSessions %}
+                                    <p>Aucune Session enregistrée
+                                    <a class="btn btn-success linkBtn" href="{{ path('new_session') }}">Créer une session</a></p>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

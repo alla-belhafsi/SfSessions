@@ -18,6 +18,7 @@ class FormationController extends AbstractController
     public function index(FormationRepository $formationRepository): Response
     {
         $formations = $formationRepository->findBy([], ["intitule" => "ASC"]);
+        
         return $this->render('formation/index.html.twig', [
             'formations' => $formations,
         ]);
@@ -29,13 +30,13 @@ class FormationController extends AbstractController
     #[Route('/formation/{id}/edit', name: 'edit_formation')]
     public function new_edit(Formation $formation = null, Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Si la categorie n'existe pas, créer une nouvelle instance de l'entité Session 
+        // Si la formation n'existe pas, créer une nouvelle instance de l'entité Formation
         if(!$formation) 
         {
             $formation = new Formation();
         }
         
-        // Créer un formulaire basé sur le type de formulaire formationType et l'entité formation
+        // Créer un formulaire basé sur le type de formulaire FormationType et l'entité Formation
         $form = $this->createForm(FormationType::class, $formation);
 
         // Traiter la requête HTTP pour remplir le formulaire
@@ -82,12 +83,12 @@ class FormationController extends AbstractController
     #[Route('/formation/{id}', name: 'show_formation')]
     public function show(SessionRepository $sessionRepository, Formation $formation): Response
     {
-        // Tri des users par pseudo en ordre croissant (ASC)
-        $sessions = $sessionRepository->findBy([], ["id" => "ASC"]);
+        // Récupération des sessions liées à la formation et tri par intitulé en ordre croissant (ASC)
+        $sessions = $sessionRepository->findBy(['formation' => $formation], ['intitule' => 'ASC']);
 
         return $this->render('formation/show.html.twig', [
             'sessions' => $sessions,
-            'formation' =>$formation
+            'formation' => $formation
         ]);
     }
 }

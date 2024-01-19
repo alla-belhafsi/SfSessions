@@ -61,7 +61,7 @@ class ModuleController extends AbstractController
         ]);
     }
 
-    # Définir une nouvelle route pour supprimer une session
+    # Définir une nouvelle route pour supprimer un module
     #[Route('/module/{id}/delete', name: 'delete_module')]
     public function delete (Module $module, EntityManagerInterface $entityManager): Response
     {

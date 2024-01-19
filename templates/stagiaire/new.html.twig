@@ -1,0 +1,100 @@
+{# Étend le template de base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# Définit le contenu du bloc 'title' qui sera utilisé dans le template parent base.html.twig #}
+{% block title %}Ajouter un Stagiaire{% endblock %}
+
+{% block body %}
+    {% if edit %}
+        <h1 class="title">Mettre à jour l'inscription de {{ stagiaire }}</h1>
+    {% else %}
+        <h1 class="title mb-5">Formulaire d'inscription</h1>
+    {% endif %}
+    
+    <div id="formContainer">
+
+       {{ form_start(formAddStagiaire) }}
+            <div class="row">
+                <div class="center col-sm">
+                    {{ form_row(formAddStagiaire.prenom) }} 
+                </div>
+            
+                <div class="center col-sm">
+                    {{ form_row(formAddStagiaire.nom) }} 
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="center col-sm">
+                    {{ form_row(formAddStagiaire.sexe) }} 
+                </div>
+            
+                <div class="center col-sm">
+                    {{ form_row(formAddStagiaire.dateNaissance) }} 
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="center col-sm">
+                    {{ form_row(formAddStagiaire.ville) }} 
+                </div>
+            
+                <div class="center col-sm">
+                    {{ form_row(formAddStagiaire.cp) }} 
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="center col-sm">
+                    {{ form_row(formAddStagiaire.mail) }} 
+                </div>
+            
+                <div class="center col-sm">
+                    {{ form_row(formAddStagiaire.telephone) }} 
+                </div>
+            </div>
+
+            {# <div class="row mb-5">
+                <div class="center mt-3">
+                    {% for formation, sessions in sessionsParFormation %}
+                        <div class="d-flex flex-column">
+                            <strong class="center mt-5 mb-1"> {{ formation }} </strong>
+                            <div class="card-stagiaire me-5 ms-5 mb-4">
+                                {% for session in sessions %}
+                                    <div class="mx-auto">
+                                        <p>{{ session.intitule }}</p> 
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col">
+                    <div class="center mt-3">
+                        <div class="card-stagiaire mt-1">
+                            <div class="mx-auto">
+                                {% for session in formAddStagiaire.sessions %}
+                                    <div class="form-check mb-5">
+                                        {{ form_widget(session, {'attr': {'class': 'form-check-input'}}) }}
+                                        {{ form_label(session, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  #}
+
+            <div class="center">
+                <p>{{ form_row(formAddStagiaire.enregistrer) }}</p>
+            </div>
+             
+        {{ form_end(formAddStagiaire) }}
+
+    </div>
+    
+
+{% endblock %}

@@ -29,7 +29,7 @@ class FormateurController extends AbstractController
     #[Route('/formateur/{id}/edit', name: 'edit_formateur')]
     public function new_edit(Formateur $formateur = null, Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Si la formateur n'existe pas, créer une nouvelle instance de l'entité Session 
+        // Si le formateur n'existe pas, créer une nouvelle instance de l'entité Formateur 
         if(!$formateur) 
         {
             $formateur = new Formateur();

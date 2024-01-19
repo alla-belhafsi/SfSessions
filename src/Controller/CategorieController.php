@@ -28,7 +28,7 @@ class CategorieController extends AbstractController
     #[Route('/categorie/{id}/edit', name: 'edit_categorie')]
     public function new_edit(Categorie $categorie = null, Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Si la categorie n'existe pas, créer une nouvelle instance de l'entité Session 
+        // Si la catégorie n'existe pas, créer une nouvelle instance de l'entité Catégorie 
         if(!$categorie) 
         {
             $categorie = new Categorie();

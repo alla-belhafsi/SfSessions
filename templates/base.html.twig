@@ -15,47 +15,59 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('app_home') }}"><img src="{{ asset('img/elan-logo.jpeg') }}" alt="Elan Logo" width="50" height="44" class="logo-elan active"></a>
-            <div class="row" id="navbarNavDropdown">
-                <ul class="nav navbar link">
-                    {% if app.user %}
-                        <!-- Si l'utilisateur est connecté, afficher le lien vers le profil et le lien de déconnexion -->
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
-                        <li class="nav-item"><a class="nav-link" aria-current="page" href="{{ path('app_home') }}">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_formation') }}">Trainings</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_formateur') }}">Trainers</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_categorie') }}">Modules</a></li>
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Add</a>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="{{ path('new_formateur') }}">New Trainer</a></li>
-                              <li><a class="dropdown-item" href="{{ path('new_formation') }}">New Training</a></li>
-                              <li><a class="dropdown-item" href="{{ path('new_categorie') }}">New Category</a></li>
-                              <li><a class="dropdown-item" href="{{ path('new_module') }}">New Module</a></li>
-                              <li><a class="dropdown-item" href="{{ path('new_session') }}">New Session</a></li>
-                            </ul>
-                        </li>
+            <!-- Logo à gauche -->
+            <div>
+                <a class="navbar-brand" href="{{ path('app_home') }}">
+                    <img src="{{ asset('img/elan-logo.jpeg') }}" alt="Elan Logo" width="50" height="44" class="logo-elan active">
+                </a>
+            </div>
+            <!-- Liens de la navbar au centre -->
+            <div class="flex-grow-2">
+                <div class="row" id="navbarNavDropdown">
+                    <ul class="nav navbar link">
+                        <!-- Si l'utilisateur est connecté, afficher les liens -->
+                        {% if app.user %}
+                            <li class="nav-item"><a class="nav-link" aria-current="page" href="{{ path('app_home') }}">Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_formation') }}">Trainings</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_formateur') }}">Trainers</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_stagiaire') }}">Trainees</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_categorie') }}">Modules</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Add</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ path('new_formation') }}">New Training</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('new_formateur') }}">New Trainer</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('new_stagiaire') }}">New Trainee</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('new_categorie') }}">New Category</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('new_module') }}">New Module</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('new_session') }}">New Session</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
+                        {% else %}  
+                        href="{{ path('app_categorie') }}"
+                            <!-- Sinon, afficher les liens de connexion et d'inscription -->
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Sign up</a></li>
                         {% endif %}
-                    {% else %}  
-                    href="{{ path('app_categorie') }}"
-                        <!-- Sinon, afficher les liens de connexion et d'inscription -->
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Sign up</a></li>
-                    {% endif %}
-                </ul>
-                {# Champ rechercher (search...) #}
-                {# <form class="d-flex" role="search">
+                    </ul>
+                </div>
+            </div>
+            <!-- Barre de recherche à droite -->
+            {# <div class="ms-auto">
+                <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> #}
-            </div>
+                </form>
+            </div> #}
         </div>
     </nav>
 
-    <main class="container">
+    <main class="container-lg">
         {% if not app.user %}
             <!-- Si l'utilisateur n'est pas connecté, afficher le titre Elan Formation -->
             <h1 class="title">Bienvenue !</h1>

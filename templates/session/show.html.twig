@@ -5,52 +5,124 @@
 {% block title %}Détail d'une session{% endblock %}
 
 {% block body %}
-    <h1 class="title">Détail de la formation {{ session.formation.intitule }}</h1>
+    <h1 class=" title">Détail de la formation {{ session.formation.intitule }}</h1>
 
-    <div id="container">
-        <div class="card-session">
-            <h2 class="center">{{ session.intitule }}</h2>
-            <p class="center">Formateur</p> 
-            <div class="card-sessionItems">
-                <p>{{ session.formateur }}</p>
-            </div>
-            <p class="center">Nombre de places</p> 
-            <div class="card-sessionItems">
-                <p>{{ session.nombrePlace }}</p>
-            </div>
-            <p class="center">Période</p> 
-            <div class="card-sessionItems">
-                <p class="center">Du {{ session.dateDebut|date('d.m.Y') }} au {{ session.dateFin|date('d.m.Y') }}</p>
+    <h2 class="center mt-5">{{ session.intitule }}</h2>
+    <div class="big-container">
+        <div class="mini-container">
+            <div class="card-session">
+                <p class="center">Formateur</p> 
+                <div class="">
+                    <strong><p>{{ session.formateur }}</p></strong>
+                </div>
             </div>
 
-            <p class="center">Modules</p>
-            <table class="table table-borderless">
-                <thead>
-                    <tr>
-                        <th>Module</th>
-                        <th>Durée</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for programme in programmes %}
+            <div class="card-session">
+                <p class="center">Période</p> 
+                <div class="">
+                    <strong><p class="center">Du {{ session.dateDebut|date('d.m.Y') }} au {{ session.dateFin|date('d.m.Y') }}</p></strong>
+                </div>
+            </div>
+        
+            <div class="card-session">
+                <p class="center">Nombre de places initial</p> 
+                <div class="nbPlaceItems">
+                    <div class="">
+                        <strong><p>{{ session.nombrePlace }}</p></strong>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+
+        <div class="mini-container">
+
+            <div class="card-session table-background">
+                <strong class="center">Programmes</strong>
+                <table class="table table-borderless ">
+                    <thead class="table-background">
                         <tr>
-                            <td>
-                                {{ programme.module.nom }}
-                            </td>
-                            <td>
-                                {{ programme.nombreJours }} jours
-                            </td>
-                            <td class="icons link">
-                                <a href="{{ path('edit_programme', {'id': programme.id}) }}"><span class="material-symbols-outlined">settings</span></a>
-                                <a href="{{ path('delete_programme', {'id': programme.id}) }}"><span class="material-symbols-outlined">delete</span></a>
-                            </td>
+                            <th class="table-background">Module</th>
+                            <th class="table-background">Durée</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for programme in programmes %}
+                            <tr>
+                                <td class="table-background">
+                                    {{ programme.module.nom }}
+                                </td>
+                                <td class="table-background">
+                                    {{ programme.nombreJours }} jours
+                                </td>
+                                <td class="icons link table-background">
+                                    <a href="{{ path('edit_programme', {'id': programme.id}) }}"><span class="material-symbols-outlined">settings</span></a>
+                                    <a href="{{ path('delete_programme', {'id': programme.id}) }}"><span class="material-symbols-outlined">delete</span></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-session">
+                <strong class="center">Nombre de places</strong>
+                <div class="nbPlaceItems">
+                    <div>
+                        <p class="center">Réservées</p>
+                        <div class="card-sessionItems item-bg-green">
+                            <p class="mb-1">{{ session.stagiaires|length }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="center">Restantes</p>
+                        <div class="card-sessionItems item-bg-red">
+                            <p class="mb-1">{{ session.nombrePlace - session.stagiaires|length }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
+
+    <div class="card-inscrit mt-5 mb-5">
+
+        <div>
+            <h2 class="tac">Stagiaires inscrits</h2>
+            <div class="card-green mt-3">
+                <div class="mx-auto">
+                    {% for stagiaire in session.stagiaires %}
+                        <div class="d-flex flex-start">
+                            <a href="{{ path('remove_stagiaire', {'id': session.id, 'stagiaireId': stagiaire.id}) }}" class="dashboard-links mb-2">
+                                <div class="d-flex"><span class="material-symbols-outlined">remove</span><p class="ms-3">
+                                {{ stagiaire.nom }} {{ stagiaire.prenom }}</p></div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {% if (session.nombrePlace - session.stagiaires|length) > 0 %}
+            <div>
+                <h2 class="tac">Stagiaires non inscrits</h2>
+                <div class="card-red mt-3">
+                    <div class="mx-auto">
+                        {% for nonInscrit in nonInscrits %}
+                            <div class="d-flex flex-start">
+                                <a href="{{ path('add_stagiaire', {'id': session.id, 'stagiaireId': nonInscrit.id}) }}" class="dashboard-links mb-2">
+                                    <div class="d-flex"><span class="material-symbols-outlined">add</span><p class="ms-3">
+                                    {{ nonInscrit.nom }} {{ nonInscrit.prenom }}</p></div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
+    </div>
 {% endblock %}
 
+{# {{ path('add_stagiaire', {'id': session.id, 'stagiaireId': nonInscrit.id}) }} #}
+{# {{ path('remove_stagiaire', {'id': session.id, 'stagiaireId': stagiaire.id}) }} #}

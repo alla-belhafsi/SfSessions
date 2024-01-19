@@ -40,6 +40,9 @@ class Stagiaire
     #[ORM\ManyToMany(targetEntity: Session::class, inversedBy: 'stagiaires')]
     private Collection $sessions;
 
+    #[ORM\Column(length: 10)]
+    private ?string $cp = null;
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
@@ -112,6 +115,18 @@ class Stagiaire
         return $this;
     }
 
+    public function getCp(): ?string
+    {
+        return $this->cp;
+    }
+
+    public function setCp(string $cp): static
+    {
+        $this->cp = $cp;
+
+        return $this;
+    }
+
     public function getMail(): ?string
     {
         return $this->mail;
@@ -139,15 +154,15 @@ class Stagiaire
     /**
      * @return Collection<int, Session>
      */
-    public function getSession(): Collection
+    public function getSessions(): Collection
     {
-        return $this->session;
+        return $this->sessions;
     }
 
     public function addSession(Session $session): static
     {
-        if (!$this->session->contains($session)) {
-            $this->session->add($session);
+        if (!$this->sessions->contains($session)) {
+            $this->sessions->add($session);
         }
 
         return $this;
@@ -155,17 +170,45 @@ class Stagiaire
 
     public function removeSession(Session $session): static
     {
-        $this->session->removeElement($session);
+        $this->sessions->removeElement($session);
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Session>
-     */
-    public function getSessions(): Collection
-    {
-        return $this->sessions;
-    }
+    // /**
+    //  * @return Collection<int, Session>
+    //  */
+    // public function getSession(): Collection
+    // {
+    //     return $this->session;
+    // }
 
+    // public function addSession(Session $session): static
+    // {
+    //     if (!$this->session->contains($session)) {
+    //         $this->session->add($session);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeSession(Session $session): static
+    // {
+    //     $this->session->removeElement($session);
+
+    //     return $this;
+    // }
+
+    // /**
+    //  * @return Collection<int, Session>
+    //  */
+    // public function getSessions(): Collection
+    // {
+    //     return $this->sessions;
+    // }
+
+    public function __toString(): string
+    {
+        return $this->prenom." ".$this->nom;
+    }
 }

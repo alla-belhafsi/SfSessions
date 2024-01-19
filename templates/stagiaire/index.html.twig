@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Stagiaires{% endblock %}
+
+{% block body %}
+
+    <h1 class="title mb-4">Liste des Stagiaires</h1>
+    <div class="center">
+        <a class="btn btn-success linkBtn" href="{{ path('new_stagiaire') }}">Ajouter un Stagiaire</a>
+    </div>
+    <div id="container-stagiaire">
+        {% for stagiaire in stagiaires %}  
+            <div class="card-stagiaire link-shadowStagiaire">
+                <a class="" href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

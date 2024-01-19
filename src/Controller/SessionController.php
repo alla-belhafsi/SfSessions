@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\Session;
 use App\Entity\Programme;
+use App\Entity\Stagiaire;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -93,24 +94,85 @@ class SessionController extends AbstractController
         return $this->redirectToRoute('app_session');
     }
 
+    # Définir une nouvelle route pour supprimer une session
+    #[Route('/session/{id}/add-stagiaire/{stagiaireId}', name: 'add_stagiaire')]
+    public function addStagiaire(Session $session, $stagiaireId, EntityManagerInterface $entityManager): Response
+    {
+
+        // Récupère le stagiaire à partir de l'ID
+        $stagiaire = $entityManager->getRepository(Stagiaire::class)->find($stagiaireId);
+
+        if ($stagiaire) {
+            // Inscrire le stagiaire à la session
+            $session->addStagiaire($stagiaire);
+            $entityManager->flush();
+
+            // Redirigez vers la page de détail de la session après l'inscription
+            return $this->redirectToRoute('show_session', [
+                'id' => $session->getId()
+            ]);
+        }
+
+        // Rediriger vers la page de détail de la session après la suppression
+        return $this->redirectToRoute('show_session', [
+            'id' => $session->getId()
+        ]);
+    }
+
+    # Définir une nouvelle route pour supprimer une session
+    #[Route('/session/{id}/remove-stagiaire/{stagiaireId}', name: 'remove_stagiaire')]
+    public function removeStagiaire(Session $session, $stagiaireId, EntityManagerInterface $entityManager): Response
+    {
+        try {
+            $stagiaire = $entityManager->getRepository(Stagiaire::class)->find($stagiaireId);
+    
+            if (!$stagiaire) {
+                throw $this->createNotFoundException('Stagiaire non trouvé.');
+            }
+    
+            // Supprimer le stagiaire de la session
+            $session->removeStagiaire($stagiaire);
+            $entityManager->flush();
+    
+            $this->addFlash('success', 'Stagiaire supprimé de la session avec succès.');
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+        }
+
+        // Rediriger vers la page de détail de la session après la suppression
+        return $this->redirectToRoute('show_session', [
+            'id' => $session->getId()
+        ]);
+    }
+
     # Définir une nouvelle route pour afficher les sessions
     #[Route('/session/{id}', name: 'show_session')]
-    public function show (Session $session, Programme $programme, EntityManagerInterface $entityManager): Response
+    public function show (Session $session = null, SessionRepository $sr): Response
     {
+        $nonInscrits = $sr->findNonInscrits($session->getId());
+        // $nonProgrammes = $sr->findNonProgrammes($session->getId());
+
         $programmes = $session->getProgrammes();
 
         // Récupérer les modules pour chaque programme
         $modules = [];
-        foreach ($programmes as $programme) {
+        foreach ($session->getProgrammes() as $programme) {
             $module = $programme->getModule();
             if ($module) {
                 $modules[] = $module;
             }
         }
+
+        $nonInscrits = $sr->findNonInscrits($session->getId());
+
         return $this->render('session/show.html.twig', [
             'session' => $session,
             'modules' => $modules,
-            'programmes' => $programmes,
+            'programmes' => $session->getProgrammes(),
+            'nonInscrits' => $nonInscrits,
+            // 'nonProgrammes' => $nonProgrammes,
+            'id' => $session->getId()
         ]);
     }
+    
 }
