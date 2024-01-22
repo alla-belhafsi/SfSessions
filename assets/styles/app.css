@@ -3,6 +3,26 @@ body {
     margin-top: 10%;
 }
 
+#container-base {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-inline: 5%;
+}
+
+.card-reg {
+    background-color: #fff;
+    width: 380px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    padding: 25px;
+}
+
+.hidden-field {
+    display: none;
+}
+
 /*-------------- NAVBAR --------------*/
 
 .nav-link {
@@ -27,15 +47,11 @@ body {
     margin-top: 30px;
 }
 
-.actions {
-    display: inline-table;
-}
-
 .table {
     margin-top: 1rem;
 }
 
-.vac {
+.vam {
     vertical-align: middle!important;
 }
 .tac {
@@ -53,11 +69,13 @@ body {
     color: #000;
 }
 .link-shadow {
-    width: 40%;
-    height: 20%;
-    padding: 5px;
-    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    height: 35px;
+    border-radius: 7px;
     transition: 0.47s;
+    padding-inline: 5px;
+    margin-right: 20px;
 }
 .link-shadow:hover {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
@@ -70,9 +88,10 @@ body {
     color: rgb(93, 37, 37)
 }
 .number {
-    text-align: center;
+    margin-top: 3px;
     font-size: 18px;
     font-weight: bolder;
+    margin-right: 50px;
 }
 .center {
     display: flex;
@@ -97,10 +116,10 @@ body {
 /*--------------- HOME (DASHBOARD) ---------------*/
 .dashboard-container {
     background-color: #fff;
-    width: 100%;
+    width: auto;
     border-radius: 10px;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-    padding: 10px;
+    padding: 5px;
     overflow: hidden;
 }
 
@@ -279,6 +298,15 @@ body {
     gap: 30px;
 }
 
+/*---------- USERS -----------*/
+.card-user {
+    background-color: #fff;
+    width: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    padding-inline: 25px;
+}
 
 /*---------- CATEGORIES -----------*/
 
@@ -288,13 +316,14 @@ body {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-    padding: 25px;
+    padding-inline: 25px;
 }
 
 .card-items {
     display: flex;
     justify-content: space-between;
     align-content: center;
+    border-radius: 7px;
     padding: 5px;
 }
 
@@ -387,6 +416,7 @@ body {
     display: flex;
     justify-content: start;
     align-items: center;
+    text-decoration: none;
     color: #000;
     border-radius: 3px;
     width: fit-content;
@@ -514,7 +544,7 @@ body {
 /* Media query pour les écrans avec une largeur maximale de 768 pixels (communément utilisé pour les appareils mobiles) */
 @media screen and (min-width: 640px) and (max-width: 768px) { 
     body {
-        margin-top: 25%;
+        margin-top: 15%;
     }
 }
 
@@ -522,7 +552,7 @@ body {
 @media screen and (max-width: 640px) { 
 
     body {
-        margin-top: 40%;
+        margin-top: 30%;
     }
     .card {
         padding: 5px;

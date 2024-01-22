@@ -5,16 +5,16 @@
 {% block title %}Liste des catégories{% endblock %}
 
 {% block body %}
-    <h1 class="title">Modules par Catégorie</h1>
-    <div class="center"><a class="btn btn-success linkBtn" href="{{ path('new_module') }}">Ajouter un Module</a>
+    <h1>Modules par Catégorie</h1>
+    <div class="center mt-3"><a class="btn btn-success linkBtn" href="{{ path('new_module') }}">Ajouter un Module</a>
     </div>
-    <div id="container">
-        <div class="card">
+    <div>
+        <div class="card mt-2">
             <table class="table table-borderless">
                 <thead>
                     <tr>
-                        <th>Catégorie</th>
-                        <th class="center">Modules (Quantité)</th>
+                        <th></th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -22,11 +22,9 @@
                     {% for categorie in categories %}
                         <tr>
                             <td>
-                                <div class="link link-shadow">
-                                    <h3><a href="{{ path('show_module', {'id': categorie.id}) }}">{{ categorie|raw }}</a></h3>
-                                </div>
+                                <h3 class="link link-shadow"><a href="{{ path('show_module', {'id': categorie.id}) }}">{{ categorie|raw }}</a></h3>
                             </td>
-                            <td class="center">
+                            <td class="tac">
                                 <strong>
                                     <p class="number">{{ categorie.modules | length }}</p>
                                 </strong>

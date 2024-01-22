@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block body %}
+
+    <h1>My Profile</h1>
+    {% if app.user %}
+        
+        <div class="mb-3">
+            <a class="dashboard-links" href="{{ path('edit_user', {'id': app.user.id}) }}"><span class="material-symbols-outlined">settings</span></a>
+            <a class="dashboard-links" href="{{ path('delete_user', {'id': app.user.id}) }}"><span class="material-symbols-outlined">delete</span></a>
+        </div>
+
+        <div class="card-user mb-5">
+
+            <div>
+                <p>{{ app.user }}</p>
+                <p>{{ app.user.email }}</p> 
+                <p>{{ app.user.dateNaissance|date('d.m.Y') }}</p>
+                {% if 'ROLE_ADMINISTRATIF' in app.user.roles %}
+                    <p>Rôle: Administration</p> 
+                {% elseif 'ROLE_TRAINER' in app.user.roles %}
+                    <p>Rôle: Formateur</p> 
+                {% elseif 'ROLE_MODERATOR' in app.user.roles %}
+                    <p>Rôle: Modérateur</p> 
+                {% else %} 
+                    <p>Rôle: Administrateur</p>
+                {% endif %} 
+            </div>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}

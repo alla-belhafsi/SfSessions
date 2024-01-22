@@ -1,0 +1,54 @@
+{# Étend le template de base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# Définit le contenu du bloc 'title' qui sera utilisé dans le template parent base.html.twig #}
+{% block title %}Ajouter une Formation{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        
+        <h1 class="title">Mettre à jour {{ user }}</h1>
+
+        <div id="formContainer">
+
+           {{ form_start(formModifyUser) }}
+                <div class="row tac">
+                    <div class="col-sm">
+                        {{ form_row(formModifyUser.prenom) }} 
+                    </div>
+                    <div class="col-sm">
+                        {{ form_row(formModifyUser.nom) }} 
+                    </div>
+                </div>
+                <div class="row tac">
+                    {{ form_row(formModifyUser.email) }}
+                </div>
+                <div class="row tac">
+                    <div class="col-sm">
+                        {{ form_row(formModifyUser.dateNaissance) }} 
+                    </div>
+                    
+                    <div class="col-sm">
+                        {% for role in formModifyUser.roles %}
+                            <div class="text-start ms-5">
+                                {{ form_widget(role) }}
+                                {{ form_label(role) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="center mt-5">
+                    <p>{{ form_row(formModifyUser.enregistrer) }}</p>
+                </div>
+                
+                {# Afficher les erreurs globales du formulaire #}
+                {{ form_errors(formModifyUser) }}
+                
+            {{ form_end(formModifyUser) }}
+
+        </div>
+    {% endif %}
+    
+
+{% endblock %}

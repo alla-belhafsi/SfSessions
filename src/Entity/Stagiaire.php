@@ -48,8 +48,6 @@ class Stagiaire
         $this->sessions = new ArrayCollection();
     }
 
-    
-
     public function getId(): ?int
     {
         return $this->id;
@@ -174,38 +172,6 @@ class Stagiaire
 
         return $this;
     }
-
-    // /**
-    //  * @return Collection<int, Session>
-    //  */
-    // public function getSession(): Collection
-    // {
-    //     return $this->session;
-    // }
-
-    // public function addSession(Session $session): static
-    // {
-    //     if (!$this->session->contains($session)) {
-    //         $this->session->add($session);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeSession(Session $session): static
-    // {
-    //     $this->session->removeElement($session);
-
-    //     return $this;
-    // }
-
-    // /**
-    //  * @return Collection<int, Session>
-    //  */
-    // public function getSessions(): Collection
-    // {
-    //     return $this->sessions;
-    // }
 
     public function __toString(): string
     {

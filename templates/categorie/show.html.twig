@@ -17,9 +17,9 @@
         </thead>
         <tbody>
             {% for module in categorie.modules %}
-                    <tr class="card-module myRow mt-4">
+                    <tr class="myRow mt-4">
                         <td>
-                            <h2 class="card-items">{{ module.nom }}</h2>
+                            <h2 class="card-items moduleNom" data-role="{{ module.nom }}">{{ module.nom }}</h2>
                         </td>
                         <td class="iconsInModule link">
                             <a href="{{ path('edit_module', {'id': module.id}) }}"><span class="material-symbols-outlined">settings</span></a>

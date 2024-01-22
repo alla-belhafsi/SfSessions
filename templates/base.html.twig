@@ -18,11 +18,14 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <!-- Logo à gauche -->
-            <div>
+            <a class="navbar-brand" href="{% if app.user %}{{ path('app_home') }}{% else %}{{ path('app_login') }}{% endif %}">
+                <img src="{{ asset('img/elan-logo.jpeg') }}" alt="Elan Logo" width="50" height="44" class="logo-elan">
+            </a>
+            {# <div>
                 <a class="navbar-brand" href="{{ path('app_home') }}">
                     <img src="{{ asset('img/elan-logo.jpeg') }}" alt="Elan Logo" width="50" height="44" class="logo-elan active">
                 </a>
-            </div>
+            </div> #}
             <!-- Liens de la navbar au centre -->
             <div class="flex-grow-2">
                 <div class="row" id="navbarNavDropdown">
@@ -48,8 +51,7 @@
                             </li>
                             {% endif %}
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
-                        {% else %}  
-                        href="{{ path('app_categorie') }}"
+                        {% else %}
                             <!-- Sinon, afficher les liens de connexion et d'inscription -->
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Sign up</a></li>
@@ -67,10 +69,9 @@
         </div>
     </nav>
 
-    <main class="container-lg">
+    <main id="container-base">
         {% if not app.user %}
-            <!-- Si l'utilisateur n'est pas connecté, afficher le titre Elan Formation -->
-            <h1 class="title">Bienvenue !</h1>
+            <h1>Welcome !</h1>
         {% endif %}
         {% block body %}
         {% endblock %}
@@ -78,6 +79,50 @@
     
     {% block javascripts %}
         <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let modules = document.querySelectorAll('.moduleNom');
+                modules.forEach(function(module) {
+                    let moduleType = module.getAttribute('data-role').toLowerCase().replace(/\s+/g, ''); // Convertir en minuscules et supprimer les espaces
+                    switch (moduleType) {
+                        case 'word':
+                            module.style.backgroundColor = '#2F5798';
+                            module.style.color = '#47A8F0';
+                            module.style.border = '3px groove #47A8F0';
+                            break;
+                        case 'excel':
+                            module.style.backgroundColor = '#167841';
+                            module.style.color = '#39C685';
+                            module.style.border = '3px groove #39C685';
+                            break;
+                        case 'powerpoint':
+                            module.style.backgroundColor = '#C23E23';
+                            module.style.color = '#FF9370';
+                            module.style.border = '3px groove #FF9370';
+                            break;
+                        case 'php':
+                            module.style.backgroundColor = '#7B7FB5';
+                            module.style.color = '#000';
+                            module.style.border = '3px groove #fff';
+                            break;
+                        case 'sql':
+                            module.style.backgroundColor = '#1F327A';
+                            module.style.color = '#E59208';
+                            module.style.border = '3px groove #08668E';
+                            break;
+                        case 'html':
+                            module.style.backgroundColor = '#F16A30';
+                            module.style.color = '#ECECEC';
+                            module.style.border = '3px groove #fff';
+                            break;
+                        case 'css':
+                            module.style.backgroundColor = '#39ACDD';
+                            module.style.color = '#ECECEC';
+                            module.style.border = '3px groove #fff';
+                        break;
+                    }
+                });
+            });            
+
             function addProgrammeForm(button) {
                 var container = document.getElementById('programmes-container');
                 container.style.display = 'flex'; 
