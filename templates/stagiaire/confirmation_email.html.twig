@@ -1,0 +1,38 @@
+<h1>Dear {{ stagiaire }}!</h1>
+
+<p>I hope this email finds you well.</p>
+
+<div>
+    <p>
+        I am writing to share the news that our team has thoroughly<br> 
+        reviewed your registration, and it is with great pleasure that<br>
+        we confirm your successful enrollment in the upcoming<br> session
+        {% set lastSession = stagiaire.getSessions().last() %}
+        {% if lastSession %}
+            <strong>{{ lastSession.getIntitule }}</strong>.
+        {% endif %}
+    </p>
+    <p>
+        The session is scheduled to take place from 
+        {% if lastSession %}
+            <strong>{{ lastSession.getDateDebut|date('d.m.Y') }}</strong> to <strong>{{ lastSession.getDateFin|date('d.m.Y') }}</strong>,<br> 
+            providing you with a valuable learning experience during this period.
+        {% endif %}
+    </p>
+
+    <p>
+        Thank you for choosing Elan Formation!<br> 
+        If you have any questions or require further assistance,<br> 
+        please do not hesitate to contact us at contact@elan-formation.fr.
+    </p>
+</div>
+
+<div>
+    <p>
+        Best regards,<br><br>
+        Jade ROUSSET<br>
+        Administration<br>
+        ELAN Formation<br>
+        jade@elan-formation.fr
+    </p>
+</div>

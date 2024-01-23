@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Stagiaire;
 use App\Form\StagiaireType;
+use Symfony\Component\Mime\Address;
 use App\Repository\SessionRepository;
 use App\Repository\StagiaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +20,7 @@ class StagiaireController extends AbstractController
     #[Route('/stagiaire', name: 'app_stagiaire')]
     public function index(StagiaireRepository $stagiaireRepository): Response
     {
+        
         $stagiaires = $stagiaireRepository->findBy([], ["nom" => "ASC"]);
 
         return $this->render('stagiaire/index.html.twig', [
@@ -28,7 +32,7 @@ class StagiaireController extends AbstractController
     #[Route('/stagiaire/new', name: 'new_stagiaire')]
     # Définir une nouvelle route pour éditer un stagiaire
     #[Route('/stagiaire/{id}/edit', name: 'edit_stagiaire')]
-    public function new_edit(Stagiaire $stagiaire = null, Request $request, EntityManagerInterface $entityManager): Response
+    public function new_edit(Stagiaire $stagiaire = null, Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         // Si la stagiaire n'existe pas, créer une nouvelle instance de l'entité Session 
         if(!$stagiaire) 
@@ -53,6 +57,9 @@ class StagiaireController extends AbstractController
             // Exécuter la persistance des données en base de données (Execute PDO)
             $entityManager->flush();
 
+            // Envoi de l'e-mail d'attente de confirmation
+            $this->sendPendingEmail($stagiaire, $mailer);
+
             // Rediriger vers la liste du stagiaire après l'ajout réussi
             return $this->redirectToRoute('show_stagiaire', [
                 'id' => $stagiaire->getId()
@@ -65,6 +72,21 @@ class StagiaireController extends AbstractController
             'edit' => $stagiaire->getId(),
             'stagiaire' => $stagiaire
         ]);
+    }
+
+    // Fonction pour envoyer un e-mail d'attente de confirmation
+    private function sendPendingEmail(Stagiaire $stagiaire, MailerInterface $mailer)
+    {
+        $email = (new TemplatedEmail())
+            ->from(new Address('contact@elan-formation.fr', 'Elan formation'))
+            ->to($stagiaire->getMail())
+            ->subject('Demande d\'inscription')
+            ->htmlTemplate('stagiaire/pending_email.html.twig')
+            ->context([
+                'stagiaire' => $stagiaire,
+            ]);
+
+        $mailer->send($email);
     }
 
     # Définir une nouvelle route pour supprimer un stagiaire

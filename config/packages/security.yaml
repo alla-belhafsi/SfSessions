@@ -39,6 +39,13 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        
+        # allow unauthenticated users to access:
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/stagiaire/new, roles: PUBLIC_ACCESS }
+
+        # but require authentication for all other USER routes
+        - { path: ^/, roles: ROLE_USER }
 
 when@test:
     security:

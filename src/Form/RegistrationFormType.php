@@ -47,15 +47,23 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields   must match.',
-                'options' => ['attr' => ['class' => 'password-field']],
+                'options' => [
+                    'attr' => [
+                        'class' => 'password-field'
+                    ]
+                ],
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => [
+                    'label' => 'Password'
+                ],
+                'second_options' => [
+                    'label' => 'Repeat Password'
+                ],
                 'constraints' => [
                     new Regex([
                         'pattern' => '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\d\s])[\w\d\W]{5,}$/',
                         
-                        'message' => 'The password must meet the specified criteria, including at least one letter, one digit, and one of the following special characters: !@#$%^&*()-=+'
+                        'message' => 'The password must meet the specified criteria, including at least 12 characters that contains at least one letter, one digit, and one of the following special characters: !@#$%^&*()-=+'
                     ]),
                 ],
             ])

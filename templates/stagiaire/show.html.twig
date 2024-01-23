@@ -3,34 +3,45 @@
 {% block title %}Fiche Stagiaire{% endblock %}
 
 {% block body %}
+    {% if app.user %}
+        <h1 class="title">Fiche du Stagiaire</h1>
+        <h3 class="title">{{ stagiaire }}</h3>
+        <div class="center">
+           <a class="dashboard-links me-3" href="{{ path('edit_stagiaire', {'id': stagiaire.id}) }}"><span class="material-symbols-outlined">settings</span></a>
+        <a class="dashboard-links ms-3" href="{{ path('delete_stagiaire', {'id': stagiaire.id}) }}"><span class="material-symbols-outlined">delete</span></a> 
+        </div>
 
-    <h1 class="title">Fiche du Stagiaire</h1>
-    <h3 class="title">{{ stagiaire }}</h3>
-    <div class="center">
-       <a class="dashboard-links me-3" href="{{ path('edit_stagiaire', {'id': stagiaire.id}) }}"><span class="material-symbols-outlined">settings</span></a>
-    <a class="dashboard-links ms-3" href="{{ path('delete_stagiaire', {'id': stagiaire.id}) }}"><span class="material-symbols-outlined">delete</span></a> 
-    </div>
-    
-    <div id="container-stagiaire">
-        <div class="card-stagiaire">
-            <p>Sexe : {{ stagiaire.sexe }}</p>
-            <p>Date de Naissance : {{ stagiaire.dateNaissance|date("d.m.Y") }}</p>
-            <p>Ville : {{ stagiaire.ville }}</p>
-            <p>Courriel : {{ stagiaire.mail }}</p>
-            <p>Téléphone : {{ stagiaire.telephone }}</p>
+        <div id="container-stagiaire">
+            <div class="card-stagiaire">
+                <p>Sexe : {{ stagiaire.sexe }}</p>
+                <p>Date de Naissance : {{ stagiaire.dateNaissance|date("d.m.Y") }}</p>
+                <p>Ville : {{ stagiaire.ville }}</p>
+                <p>Courriel : {{ stagiaire.mail }}</p>
+                <p>Téléphone : {{ stagiaire.telephone }}</p>
+            </div>
+            <div class="card-stagiaire">
+                {% if stagiaire.sessions is not empty %}
+                    <h6 class="center">Session</h6>
+                    {% for session in stagiaire.sessions %}
+                    <div class="link-shadowStagiaire">
+                        <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucune session associée !</p>
+                {% endif %}
+            </div>
         </div>
-        <div class="card-stagiaire">
-            {% if stagiaire.sessions is not empty %}
-                <h6 class="center">Session</h6>
-                {% for session in stagiaire.sessions %}
-                <div class="link-shadowStagiaire">
-                    <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a>
-                </div>
-                {% endfor %}
-            {% else %}
-                <p>Aucune session associée !</p>
-            {% endif %}
+    {% else %}
+        <h1 class="title">Registration request successful</h1>
+        <div class="d-flex flex-column card-reg center mt-5">
+            <p>
+                If your email exists, you should have just received an email containing additional information about the next steps.
+            </p>
+            <p>
+                If you don't find the email in your inbox, please check your spam folder. If the issue persists, feel free to contact our support team for further assistance.
+            </p>
         </div>
-    </div>
+    {% endif %}
 
 {% endblock %}

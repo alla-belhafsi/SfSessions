@@ -149,6 +149,10 @@ body {
     gap: 10px;
 }
 
+.border {
+    border: 1px solid #000;
+}
+
 
 
 /*------------------ FORMATEURS-------------------*/
@@ -240,6 +244,7 @@ body {
     display: flex;
     justify-content: space-evenly;
     margin-block: 5%;
+    gap: 35px;
 }
 .mini-container {
     display: flex;
@@ -262,9 +267,11 @@ body {
     margin-inline: 3%;
 }
 
-.card-inscrit {
+#container-inscrit {
     display: flex;
     justify-content: space-evenly;
+    margin-block: 5%;
+    gap: 35px;
 }
 
 .table-background {
@@ -281,8 +288,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-    padding: 30px;
-    gap: 30px;
+    padding-top: 20px;
 }
 .card-green {
     display: flex;
@@ -294,8 +300,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-    padding: 30px;
-    gap: 30px;
+    padding-top: 20px;
 }
 
 /*---------- USERS -----------*/

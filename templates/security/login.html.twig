@@ -18,7 +18,10 @@
                 <div>
                     <label for="inputPassword">Password</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                </div>     
+                </div>
+                <div class="center">
+                    <a class="link-shadowStagiaire" href="{{ path('app_forgot_password_request') }}">Forgot Password ?</a>
+                </div>   
             </div>
         
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -30,7 +33,7 @@
         </form>
         {% else %}
         <div class="tac mt-5">
-            <strong><p class="mt-5">Congratulations! Your email has been successfully confirmed. Welcome to our community!</p></strong>
+            {# <strong><p class="mt-5">Congratulations! Your email has been successfully confirmed. Welcome to our community!</p></strong> #}
 
             <p>You are logged in as {{ app.user.email }}</p>
         </div>

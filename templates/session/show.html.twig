@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <div class="card-inscrit mt-5 mb-5">
+    <div id="container-inscrit">
 
         <div>
             <h2 class="tac">Stagiaires inscrits</h2>
@@ -93,9 +93,12 @@
                 <div class="mx-auto">
                     {% for stagiaire in session.stagiaires %}
                         <div class="d-flex flex-start">
-                            <a href="{{ path('remove_stagiaire', {'id': session.id, 'stagiaireId': stagiaire.id}) }}" class="dashboard-links mb-2">
-                                <div class="d-flex"><span class="material-symbols-outlined">remove</span><p class="ms-3">
-                                {{ stagiaire.nom }} {{ stagiaire.prenom }}</p></div>
+                            <a href="{{ path('remove_stagiaire', {'id': session.id, 'stagiaireId': stagiaire.id}) }}" class="dashboard-links">
+                                <div class="d-flex">
+                                    <span class="material-symbols-outlined">remove</span>
+                                    <p class="ms-3">
+                                    {{ stagiaire.nom }} {{ stagiaire.prenom }}</p>
+                                </div>
                             </a>
                         </div>
                     {% endfor %}
@@ -110,7 +113,7 @@
                     <div class="mx-auto">
                         {% for nonInscrit in nonInscrits %}
                             <div class="d-flex flex-start">
-                                <a href="{{ path('add_stagiaire', {'id': session.id, 'stagiaireId': nonInscrit.id}) }}" class="dashboard-links mb-2">
+                                <a href="{{ path('add_stagiaire', {'id': session.id, 'stagiaireId': nonInscrit.id}) }}" class="dashboard-links">
                                     <div class="d-flex"><span class="material-symbols-outlined">add</span><p class="ms-3">
                                     {{ nonInscrit.nom }} {{ nonInscrit.prenom }}</p></div>
                                 </a>

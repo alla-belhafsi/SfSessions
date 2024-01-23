@@ -5,9 +5,12 @@ use App\Entity\Session;
 use App\Entity\Programme;
 use App\Entity\Stagiaire;
 use App\Form\SessionType;
+use Symfony\Component\Mime\Address;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -94,9 +97,9 @@ class SessionController extends AbstractController
         return $this->redirectToRoute('app_session');
     }
 
-    # Définir une nouvelle route pour supprimer une session
+    # Définir une nouvelle route pour ajouter un stagiaire à la session
     #[Route('/session/{id}/add-stagiaire/{stagiaireId}', name: 'add_stagiaire')]
-    public function addStagiaire(Session $session, $stagiaireId, EntityManagerInterface $entityManager): Response
+    public function addStagiaire(Session $session, $stagiaireId, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
 
         // Récupère le stagiaire à partir de l'ID
@@ -105,7 +108,10 @@ class SessionController extends AbstractController
         if ($stagiaire) {
             // Inscrire le stagiaire à la session
             $session->addStagiaire($stagiaire);
+            // Sauvegarder les changements en BDD
             $entityManager->flush();
+            // Envoyer l'e-mail de confirmation
+            $this->sendConfirmationEmail($stagiaire, $session, $mailer);
 
             // Redirigez vers la page de détail de la session après l'inscription
             return $this->redirectToRoute('show_session', [
@@ -119,7 +125,7 @@ class SessionController extends AbstractController
         ]);
     }
 
-    # Définir une nouvelle route pour supprimer une session
+    # Définir une nouvelle route pour supprimer un stagiaire de la session
     #[Route('/session/{id}/remove-stagiaire/{stagiaireId}', name: 'remove_stagiaire')]
     public function removeStagiaire(Session $session, $stagiaireId, EntityManagerInterface $entityManager): Response
     {
@@ -143,6 +149,22 @@ class SessionController extends AbstractController
         return $this->redirectToRoute('show_session', [
             'id' => $session->getId()
         ]);
+    }
+
+    // Fonction pour envoyer un e-mail de confirmation d'inscription à une session
+    private function sendConfirmationEmail(Stagiaire $stagiaire, Session $session, MailerInterface $mailer)
+    {
+        $email = (new TemplatedEmail())
+            ->from(new Address('jade@elan-formation.fr', 'Elan formation'))
+            ->to($stagiaire->getMail())
+            ->subject('Demande d\'inscription')
+            ->htmlTemplate('stagiaire/confirmation_email.html.twig')
+            ->context([
+                'stagiaire' => $stagiaire,
+                'session' => $session,
+            ]);
+
+        $mailer->send($email);
     }
 
     # Définir une nouvelle route pour afficher les sessions

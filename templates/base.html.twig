@@ -41,9 +41,10 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Add</a>
                                 <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ path('app_register') }}">New User</a></li>
                                     <li><a class="dropdown-item" href="{{ path('new_formation') }}">New Training</a></li>
                                     <li><a class="dropdown-item" href="{{ path('new_formateur') }}">New Trainer</a></li>
-                                    <li><a class="dropdown-item" href="{{ path('new_stagiaire') }}">New Trainee</a></li>
+                                    {# <li><a class="dropdown-item" href="{{ path('new_stagiaire') }}">New Trainee</a></li> #}
                                     <li><a class="dropdown-item" href="{{ path('new_categorie') }}">New Category</a></li>
                                     <li><a class="dropdown-item" href="{{ path('new_module') }}">New Module</a></li>
                                     <li><a class="dropdown-item" href="{{ path('new_session') }}">New Session</a></li>
@@ -53,8 +54,8 @@
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
                         {% else %}
                             <!-- Sinon, afficher les liens de connexion et d'inscription -->
+                            <li class="nav-item"><a class="nav-link" href="{{ path('new_stagiaire') }}">Subscription</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Sign up</a></li>
                         {% endif %}
                     </ul>
                 </div>
