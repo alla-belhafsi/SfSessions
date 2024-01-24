@@ -125,6 +125,33 @@ class SessionController extends AbstractController
         ]);
     }
 
+    // #[Route('/session/{id}/add-stagiaire/{stagiaireId}', name: 'add_stagiaire')]
+    // public function addStagiaire(Session $session, $stagiaireId, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    // {
+
+    //     // Récupère le stagiaire à partir de l'ID
+    //     $stagiaire = $entityManager->getRepository(Stagiaire::class)->find($stagiaireId);
+
+    //     if ($stagiaire && $stagiaire->getEtat() === 'CONFIRMEE') {
+    //         // Inscrire le stagiaire à la session
+    //         $session->addStagiaire($stagiaire);
+    //         // Sauvegarder les changements en BDD
+    //         $entityManager->flush();
+    //         // Envoyer l'e-mail de confirmation
+    //         $this->sendConfirmationEmail($stagiaire, $session, $mailer);
+
+    //         // Redirigez vers la page de détail de la session après l'inscription
+    //         return $this->redirectToRoute('show_session', [
+    //             'id' => $session->getId()
+    //         ]);
+    //     }
+
+    //     // Rediriger vers la page de détail de la session après la suppression
+    //     return $this->redirectToRoute('show_session', [
+    //         'id' => $session->getId()
+    //     ]);
+    // }
+
     # Définir une nouvelle route pour supprimer un stagiaire de la session
     #[Route('/session/{id}/remove-stagiaire/{stagiaireId}', name: 'remove_stagiaire')]
     public function removeStagiaire(Session $session, $stagiaireId, EntityManagerInterface $entityManager): Response
@@ -166,6 +193,34 @@ class SessionController extends AbstractController
 
         $mailer->send($email);
     }
+
+    # Définir une nouvelle route pour confirmer les inscriptions
+    // #[Route('/session/{id}/confirmInscription/{stagiaireId}', name: 'session_confirm_inscription')]
+    // public function confirmInscription($id, $stagiaireId): Response
+    // {
+    //     // Récupère le stagiaire à partir de l'ID
+    //     $stagiaire = $entityManager->getRepository(Stagiaire::class)->find($stagiaireId);
+
+    //     $entityManager = $this->getDoctrine()->getManager();
+
+    //     // Mettre à jour l'état de StagiaireSession dans la base de données
+    //     $stagiaireSession->setEtat('CONFIRMEE');
+    //     $entityManager->flush();
+
+    //     return $this->redirectToRoute('liste_sessions');
+    // }
+
+    // #[Route('/session/{id}/rejectInscription/{stagiaireId}', name: 'session_reject_inscription')]
+    // public function rejectInscription($id, $stagiaireId): Response
+    // {
+    //     $entityManager = $this->getDoctrine()->getManager();
+
+    //     // Mettez à jour l'état de la StagiaireSession dans la base de données
+    //     $stagiaireSession->setEtat('REJETEE');
+    //     $entityManager->flush();
+
+    //     return $this->redirectToRoute('liste_sessions');
+    // }
 
     # Définir une nouvelle route pour afficher les sessions
     #[Route('/session/{id}', name: 'show_session')]
