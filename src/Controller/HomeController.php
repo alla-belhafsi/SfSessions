@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')]
+    #[Route('/', name: 'app_home')]
     public function index(SessionRepository $sessionRepository, UserRepository $userRepository): Response
     {
         $sessions = $sessionRepository->findBy([], ["intitule" => "ASC"]);
